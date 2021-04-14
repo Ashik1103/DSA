@@ -1,82 +1,90 @@
-/*
-__EXPEREMENT 01__
-Design, Develop and Implement a menu driven program in C for the following Array operations
-a. Creating Array of N Integer elements.
-b. Display of Array elements with suitable headings.
-c. Inserting an element (ELEM) at a given valid position (POS).
-d. Deleting an element at a given valid position (POS).
-e. Exit.
-ALGORITHM:
-Step 1: Start.
-Step 2: read N value.
-Step 3: read array of N integer elements.
-Step 4: print array of N integer elements.
-Step 5: insert an element at given position in an array.
-step 6: delete an element at given position from an array.
-Step 7: stop. 
-*/
-
-
-
 #include<stdio.h>
 #include<stdlib.h>
-
-int n,i;
-
-void create(){
-    int a;
-printf("how many elements you want to enter?");
-scanf("%d",&n);
-
-for(i=0;i<n;i++)
-printf("\n the n value is %d \n",n);
-printf("\n the i value is %d", i);
-// scanf("\n %d \n",&a);
+int a[100],n;
+void create()
+{
+    int i;
+    printf("enter %d elements \n", n);
+    for (i=0; i<n; i++)
+    {
+        scanf("%d",&a[i]);
+    }
 }
 
-void display(){
-
+void display()
+{
+    int i;
+    printf("elements in the current array are :\n");
+    for (i=0; i<n; i++)
+    {
+        printf("%d\t",a[i]);
+    }
 }
 
-void insert(){
-
+void insert(int pos, int value){
+    int i;
+    for (i=n; i>=pos; i--)
+    {
+        a[i+1]=a[i];
+    }
+    n+=1;
+    a[pos] = value;
+    printf("array elements is hence updated \n");
+    
 }
 
-void delete(){
 
+void delete( int pos){
+    int i;
+    if (pos >= n+1){
+        printf("overflow \n");
+    }
+    else{
+        for (i=pos; i<n; i++)
+        {
+            a[i]=a[i+1];
+        }
+        n=n-1;
+        printf("removed \n");
+    }
 }
-
-
-
 
 void main(){
-int ch;
+    int ch, pos , value;
     while(1){
-        printf("1. Create \n");
-        printf("2. Display \n");
-        printf("3. Insert \n");
-        printf("4. Delete \n");
-
-        printf("Enter your choice");
+        printf("\n1. create \n");
+        printf("2. display \n");
+        printf("3. insert \n");
+        printf("4. delete\n");
+        printf("5. exit\n");
         scanf("%d",&ch);
 
         switch(ch){
+          case 1:
+          printf("enter no. of elements \n");
+          scanf("%d",&n);
+          create();
+          break; 
+           
+          case 2:
+          printf("displaying!! \n");
+          display();
+          break;
 
-        case 1: create();
-        break;
+          case 3:
+          printf("enter the location and value at which insertion is to be performed \n");
+          scanf("%d%d",&pos,&value);
+          insert(pos,value);
+          break;
 
-        case 2:display();
-        break;
+          case 4:
+          printf("enter the location of element u want to delete\n");
+          scanf("%d",pos);
+          delete(pos);
+          break;
 
-        case 3:insert();
-        break;
-
-        case 4:delete();
-        break;
-
-
+          default: 
+          exit(0);
         }
-
-
     }
 }
